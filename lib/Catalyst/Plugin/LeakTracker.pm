@@ -71,10 +71,13 @@ sub dispatch {
     my ( $c, @args ) = @_;
 
     $c->send_devel_event( dispatch =>
-        c       => $c,
-        action  => $c->action,
-        request => $c->request,
-        uri     => $c->request->uri,
+        c           => $c,
+        action      => $c->action,
+        action_name => $c->action->reverse,
+        controller  => $c->action->class,
+        request     => $c->request,
+        uri_object  => $c->request->uri,
+        uri         => ($c->request->uri . ""), # Stringify will avoid overloading
     );
 
     $c->NEXT::dispatch(@args);
