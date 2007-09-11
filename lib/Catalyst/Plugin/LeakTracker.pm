@@ -20,6 +20,7 @@ use base qw/Catalyst::Plugin::C3 Class::Data::Inheritable/;
 
 __PACKAGE__->mk_classdata($_) for qw/
     object_trackers
+    object_tracker_hash
     devel_events_log
     devel_events_filters
     devel_events_multiplexer
@@ -30,6 +31,7 @@ sub setup {
     my ( $app, @args ) = @_;
 
     $app->object_trackers([]);
+    $app->object_tracker_hash({});
 
     my $log = $app->create_devel_events_log;
 
@@ -113,13 +115,19 @@ sub finalize {
     $c->NEXT::finalize(@args);
 }
 
+my $i;
+
 sub handle_request {
     my ( $app, @args ) = @_;
 
-    $app->send_devel_event( request_begin => ( app => $app ) );
+    my $req_id = ++$i;
+
+    $app->send_devel_event( request_begin => ( app => $app, request_id => $req_id ) );
 
     my $tracker = $app->create_devel_events_object_tracker;
+
     push @{ $app->object_trackers }, $tracker;
+    $app->object_tracker_hash->{$req_id} = $tracker;
 
     my $multiplexer = $app->devel_events_multiplexer;
     $multiplexer->add_handler( $tracker );
@@ -133,7 +141,7 @@ sub handle_request {
 
     $multiplexer->remove_handler( $tracker );
 
-    $app->send_devel_event( request_end => ( app => $app, status => $ret ) );
+    $app->send_devel_event( request_end => ( app => $app, status => $ret, request_id => $req_id ) );
 
     return $ret;
 }
