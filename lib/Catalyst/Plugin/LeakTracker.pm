@@ -112,7 +112,6 @@ sub finalize {
         c        => $c,
         action   => $c->action,
         response => $c->response,
-        body     => $c->response->body,
     );
 
     $c->NEXT::finalize(@args);
