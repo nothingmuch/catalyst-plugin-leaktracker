@@ -290,4 +290,39 @@ __PACKAGE__;
 
 __END__
 
+=pod
 
+=head1 NAME
+
+Catalyst::Plugin::LeakTracker - Use L<Devel::Events::Objects> to track object
+leaks in the Catalyst request cycle.
+
+=head1 SYNOPSIS
+
+    package MyApp;
+
+    use Catalyst qw/
+        LeakTracker
+    /;
+
+    # ...
+
+    sub foo : Local {
+        my ( $self, $c ) = @_;
+
+        $c->object_trackers
+    }
+
+=head1 DESCRIPTION
+
+This plugin will use L<Devel::Events::Objects> and
+L<Devel::Events::Handler::Log::Memory> to keep track of objects created in
+every request. It will also generate events corresponding to the request flow
+and action execution to facilitate generating stack dumps and more debugging
+information.
+
+You probably just want to use L<Catalyst::Controller::LeakTracker> to get leak
+reports though.
+
+
+=cut
