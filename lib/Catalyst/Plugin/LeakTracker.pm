@@ -89,17 +89,20 @@ sub execute {
     my ( $class, $action ) = @args;
 
     $c->send_devel_event( enter_action =>
-        c      => $c,
-        action => $action,
-        class  => $class,
+        c           => $c,
+        action      => $action,
+        action_name => $action->reverse,
+        class       => $class,
+        arguments   => [@{$c->request->args}],
     );
 
     my $ret = $c->NEXT::execute(@args);
 
     $c->send_devel_event( leave_action =>
-        c      => $c,
-        action => $action,
-        class  => $class,
+        c           => $c,
+        action      => $action,
+        action_name => $action->reverse,
+        class       => $class,
     );
 
     return $ret;
