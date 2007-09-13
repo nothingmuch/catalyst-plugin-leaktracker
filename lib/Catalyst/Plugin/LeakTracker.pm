@@ -86,7 +86,7 @@ sub dispatch {
 sub execute {
     my ( $c, @args ) = @_;
 
-    my ( $class, $action ) = @_;
+    my ( $class, $action ) = @args;
 
     $c->send_devel_event( enter_action =>
         c      => $c,
