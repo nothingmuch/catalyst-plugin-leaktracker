@@ -16,6 +16,8 @@ build_requires 'ok';
 
 requires 'Catalyst::Plugin::C3';
 
+requires 'Class::Data::Inheritable';
+
 requires 'Devel::Events';
 
 # these might be separate dists
