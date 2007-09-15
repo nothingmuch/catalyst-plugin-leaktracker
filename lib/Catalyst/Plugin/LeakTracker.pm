@@ -70,11 +70,13 @@ sub prepare {
 sub dispatch {
     my ( $c, @args ) = @_;
 
+    local $@;
+
     $c->send_devel_event( dispatch =>
         c           => $c,
         action      => $c->action,
-        action_name => $c->action->reverse,
-        controller  => $c->action->class,
+        action_name => eval { $c->action->reverse },
+        controller  => eval { $c->action->class },
         request     => $c->request,
         uri_object  => $c->request->uri,
         uri         => ($c->request->uri . ""), # Stringify will avoid overloading
