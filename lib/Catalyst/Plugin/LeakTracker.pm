@@ -212,24 +212,6 @@ sub get_request_events {
     $c->devel_events_log->limit( from => { request_id => $request_id }, to => "request_end" );
 }
 
-sub get_all_request_events_hash {
-    my $c = shift;
-
-    my %events_by_id;
-
-    foreach my $request_id ( $c->get_all_request_ids ) {
-        $events_by_id{$request_id} = [ $c->get_request_events($request_id) ];
-    }
-
-    return \%events_by_id;
-}
-
-sub get_all_request_events {
-    my $c = shift;
-
-    map { { id => $_, events => [ $c->get_request_events($_) ] } } $c->get_all_request_ids;
-}
-
 sub get_event_by_id {
     my ( $c, $event_id ) = @_;
 
