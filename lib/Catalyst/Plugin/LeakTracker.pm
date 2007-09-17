@@ -70,17 +70,19 @@ sub prepare {
 sub dispatch {
     my ( $c, @args ) = @_;
 
-    local $@;
+    {
+        local $@;
 
-    $c->send_devel_event( dispatch =>
-        c           => $c,
-        action      => $c->action,
-        action_name => eval { $c->action->reverse },
-        controller  => eval { $c->action->class },
-        request     => $c->request,
-        uri_object  => $c->request->uri,
-        uri         => ($c->request->uri . ""), # Stringify will avoid overloading
-    );
+        $c->send_devel_event( dispatch =>
+            c           => $c,
+            action      => $c->action,
+            action_name => eval { $c->action->reverse },
+            controller  => eval { $c->action->class },
+            request     => $c->request,
+            uri_object  => $c->request->uri,
+            uri         => ($c->request->uri . ""), # Stringify will avoid overloading
+        );
+    }
 
     $c->NEXT::dispatch(@args);
 }
@@ -90,22 +92,30 @@ sub execute {
 
     my ( $class, $action ) = @args;
 
-    $c->send_devel_event( enter_action =>
-        c           => $c,
-        action      => $action,
-        action_name => $action->reverse,
-        class       => $class,
-        arguments   => [@{$c->request->args}],
-    );
+    {
+        local $@;
+
+        $c->send_devel_event( enter_action =>
+            c           => $c,
+            action      => $action,
+            action_name => eval { $action->reverse },
+            class       => $class,
+            arguments   => [@{$c->request->args}],
+        );
+    }
 
     my $ret = $c->NEXT::execute(@args);
 
-    $c->send_devel_event( leave_action =>
-        c           => $c,
-        action      => $action,
-        action_name => $action->reverse,
-        class       => $class,
-    );
+    {
+        local $@;
+
+        $c->send_devel_event( leave_action =>
+            c           => $c,
+            action      => $action,
+            action_name => eval { $action->reverse },
+            class       => $class,
+        );
+    }
 
     return $ret;
 }
