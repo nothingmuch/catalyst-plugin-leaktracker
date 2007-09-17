@@ -316,7 +316,91 @@ and action execution to facilitate generating stack dumps and more debugging
 information.
 
 You probably just want to use L<Catalyst::Controller::LeakTracker> to get leak
-reports though.
+reports.
 
+=head1 METHODS
+
+=over 4
+
+=item get_all_request_ids
+
+Returns all the request IDs
+
+=item get_all_request_begin_events
+
+Returns all the C<request_begin> events
+
+=item get_request_events $request_id
+
+Get all the events that happenned in a given request
+
+=item get_event_by_id $event_id
+
+Gets the logged event by id
+
+=item generate_stack_for_event $request_id, $event_id
+
+Returns a Catalyst action stack trace for the event ID
+
+=item get_object_tracker_by_id $request_id
+
+Returns the object tracker instantiated for the specified request
+
+=item get_object_entry_by_id $request_id, $event_id
+
+Returns the event entry. This contains the "real" copy of the object, not the
+stringified version that C<get_event_by_id> would give.
+
+=item get_object_by_event_id $request_id, $event_id
+
+Like C<get_object_entry_by_id> but returns just the C<object> field.
+
+=item object_trackers
+
+=item object_tracker_hash
+
+=item devel_events_log
+
+=item devel_events_filters
+
+=item devel_events_multiplexer
+
+=item devel_events_generator
+
+These class data accessors contain the various support objects.
+
+=item create_devel_events_log
+
+=item create_devel_events_log_filter
+
+=item create_devel_events_multiplexer
+
+=item create_devel_events_object_tracker
+
+=item create_devel_events_object_event_generator
+
+=item create_devel_events_filter_chain
+
+These methods create the various L<Devel::Events> and L<Devel::Events::Objects> instances.
+
+=back
+
+=head1 SEE ALSO
+
+L<Devel::Events>, L<Devel::Events::Objects>,
+L<Catalyst::Controller::LeakTracker>,
+L<http://blog.jrock.us/articles/Plugging%20a%20leaky%20whale.pod>
+
+=head1 AUTHOR
+
+Yuval Kogman <nothingmuch@woobling.org>
+
+=head1 COPYRIGHT & LICENSE
+
+	Copyright (c) 2007 Yuval Kogman. All rights reserved
+	This program is free software; you can redistribute it and/or modify it
+	under the terms of the MIT license or the same terms as Perl itself.
+
+=cut
 
 =cut
