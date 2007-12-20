@@ -10,6 +10,7 @@ my @path = split '::', $module;
 all_from('lib/'. (join '/',@path). '.pm');
 
 requires 'Catalyst::Runtime' => '5.7010';
+requires 'Task::Weaken' => '1.02';
 build_requires 'Test::WWW::Mechanize::Catalyst';
 build_requires 'Test::More';
 build_requires 'ok';
