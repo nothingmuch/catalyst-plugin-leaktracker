@@ -41,6 +41,7 @@ is( scalar( keys %$live_objects ), 2, "no leaked objects" );
 is_deeply(
     $t[0]->class_counters,
     {
+        'URI::http' => 0,
         'class::a' => 1,
         'class::b' => 0,
         'class::c' => 1,
