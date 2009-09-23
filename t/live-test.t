@@ -38,14 +38,8 @@ $live_objects = $t[0]->live_objects;
 
 is( scalar( keys %$live_objects ), 2, "no leaked objects" );
 
-is_deeply(
-    $t[0]->class_counters,
-    {
-        'URI::http' => 0,
-        'class::a' => 1,
-        'class::b' => 0,
-        'class::c' => 1,
-    },
-    "Class counts correct",
-);
+my $counts = $t[0]->class_counters;
 
+is( $counts->{'class::a'}, 1, 'class::a count correct' );
+is( $counts->{'class::b'}, 0, 'class::b count correct' );
+is( $counts->{'class::c'}, 1, 'class::c count correct' );
