@@ -14,7 +14,7 @@ use Devel::Events::Handler::Multiplex;
 use Devel::Events::Generator::Objects;
 use Devel::Events::Handler::ObjectTracker;
 
-our $VERSION = 0.02;
+our $VERSION = "0.03";
 
 use base qw/Catalyst::Plugin::C3 Class::Data::Inheritable/;
 
