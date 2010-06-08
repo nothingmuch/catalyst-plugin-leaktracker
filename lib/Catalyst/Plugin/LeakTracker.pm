@@ -51,7 +51,7 @@ sub setup {
     $app->devel_events_filters($filters);
     $app->devel_events_generator($generator);
 
-    $app->NEXT::setup(@args);
+    $app->next::method(@args);
 }
 
 # FIXME add events to prepare, dispatch and finalize
@@ -152,7 +152,7 @@ sub handle_request {
     my $generator = $app->devel_events_generator;
     $generator->enable;
 
-    my $ret = $app->NEXT::handle_request(@args);
+    my $ret = $app->next::method(@args);
 
     $generator->disable;
 
