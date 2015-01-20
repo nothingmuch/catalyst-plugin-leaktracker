@@ -387,9 +387,17 @@ These methods create the various L<Devel::Events> and L<Devel::Events::Objects> 
 
 =head1 SEE ALSO
 
-L<Devel::Events>, L<Devel::Events::Objects>,
-L<Catalyst::Controller::LeakTracker>,
-L<http://blog.jrock.us/articles/Plugging%20a%20leaky%20whale.pod>
+=over 4
+
+=item * L<Devel::Events>
+
+=item * L<Devel::Events::Objects>
+
+=item * L<Catalyst::Controller::LeakTracker>
+
+=item * L<http://web.archive.org/web/20090823014732/http://blog.jrock.us/articles/Plugging%20a%20leaky%20whale.pod>
+
+=back
 
 =head1 AUTHOR
 
