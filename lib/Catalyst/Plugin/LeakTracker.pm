@@ -395,7 +395,7 @@ These methods create the various L<Devel::Events> and L<Devel::Events::Objects> 
 
 =item * L<Catalyst::Controller::LeakTracker>
 
-=item * L<http://blog.jrock.us/articles/Plugging%20a%20leaky%20whale.pod>
+=item * L<http://web.archive.org/web/20090823014732/http://blog.jrock.us/articles/Plugging%20a%20leaky%20whale.pod>
 
 =back
 
